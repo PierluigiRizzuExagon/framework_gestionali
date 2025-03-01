@@ -1,0 +1,54 @@
+- **Project Setup:**
+
+  - Use **Next.js** as the primary framework with Drizzle for database interactions.
+  - Authentication must be handled through **auth.js**, utilizing its built-in authentication actions where possible.
+  - Emails must be sent using **SendGrid**, including password recovery flows.
+  - The backend must support role-based notifications and a role-based sidebar.
+  - The project must be a **full-stack Next.js application**, meaning both frontend and backend logic are managed within the same codebase.
+  - A **Docker environment** must be provided to spin up a **MySQL** test database with an initial user for testing authentication and role-based features.
+  - **All database operations must be managed via Drizzle**, avoiding raw SQL scripts where possible.
+
+- **Project Objectives:**
+
+  The goal of this project is to provide a **scalable and modular** skeleton for building management systems (gestionali). It should include:
+
+  - **User authentication and session management** via **auth.js**.
+  - **Role-based access control (RBAC)** to determine available features per user.
+  - **A notification system** that filters and displays messages based on user roles.
+  - **A dynamic sidebar menu** with configurable visibility based on roles and permissions.
+  - **Password recovery system** with email support using SendGrid.
+  - **A ready-to-use database setup** in Docker for easy local testing, based on MySQL.
+    -Specifica sempre i path da usare e dove puoi usa gli alias per avere quelli assluti e non are confusione. In piu i modelli andranno mesis in vari file spearati semprepero ridne.
+
+- **Backend Rules:**
+
+  - Ensure all database operations follow Drizzle best practices.
+  - Use **Drizzle migrations** for database schema changes, avoiding manual SQL scripts.
+  - Implement authentication and session management securely with **auth.js**, leveraging its **built-in auth actions** instead of custom API endpoints where possible.
+  - Send transactional emails through **SendGrid**, keeping templates modular and maintainable.
+  - Implement a notification system that filters messages based on user roles.
+  - Define **server-side functions** (Server Actions, API routes, or RSC) instead of exposing separate REST endpoints:
+    - **Notifications** → Should be fetched using a server-side function instead of a public API endpoint.
+    - **Menu Items** → Should be resolved on the server based on the logged-in user’s role and permissions.
+    - **Auth Actions** → Use **auth.js actions** for login, registration, and password recovery instead of explicit API endpoints.
+
+- **Frontend Guidelines:**
+
+  - The menu must be positioned on the right and dynamically update based on the user’s role.
+  - Nested menu items (children) should be supported and rendered conditionally.
+  - Menu items should be either **active**, **inactive**, or hidden based on configuration.
+  - UI components should follow a modular structure to ensure maintainability.
+
+- **Learning & Explanation:**
+
+  - Each architectural choice must be documented with reasoning.
+  - Every function should include an explanation of why it was implemented in a certain way.
+  - Responses and documentation should be in **Italiano** to facilitate comprehension.
+  - Important concepts such as **server components, client components, and database interactions** should be well-explained within the project documentation.
+
+- **General Development Practices:**
+
+  - Use `.env` files for environment-specific configurations and secrets.
+  - Ignore unnecessary files such as `node_modules`, `.log`, `.env`, `out`, `.next`, and `coverage`.
+  - Keep code structured and adhere to clean architecture principles.
+  - Document significant changes or decisions in a structured manner.

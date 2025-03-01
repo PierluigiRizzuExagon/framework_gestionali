@@ -1,0 +1,44 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "875706ac-ad3f-4cc1-b2f3-13edb18b6be1",
+  "prevId": "c1633dc2-61ac-4a73-a451-c2ec9dea81e1",
+  "tables": {
+    "role_permissions": {
+      "name": "role_permissions",
+      "columns": {
+        "role_id": {
+          "name": "role_id",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "permission_id": {
+          "name": "permission_id",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "role_permissions_role_id_permission_id_pk": {
+          "name": "role_permissions_role_id_permission_id_pk",
+          "columns": [
+            "role_id",
+            "permission_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
