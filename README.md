@@ -8,7 +8,6 @@ Un framework completo per la creazione di sistemi gestionali basato su Next.js 1
 - **Gestione utenti e ruoli**
 - **Sistema di notifiche** basato sui ruoli
 - **Menu dinamico** basato sui permessi
-- **Recupero password** via email
 - **Database MySQL** con Drizzle ORM
 - **Docker** per l'ambiente di sviluppo
 
@@ -23,7 +22,7 @@ Un framework completo per la creazione di sistemi gestionali basato su Next.js 1
 1. Clona il repository:
 
 ```bash
-git clone https://github.com/tuousername/framework_gestionali.git
+git clone https://github.com/PierluigiRizzuExagon/framework_gestionali.git
 cd framework_gestionali
 ```
 
@@ -37,17 +36,13 @@ pnpm install
 
 ```env
 # Configurazione del database
-NEXT_PUBLIC_DATABASE_HOST=localhost
-NEXT_PUBLIC_DATABASE_PORT=3306
-NEXT_PUBLIC_DATABASE_USER=admin
-NEXT_PUBLIC_DATABASE_PASSWORD=password
-NEXT_PUBLIC_DATABASE_NAME=gestionale
+DATABASE_URL=mysql://admin:password@localhost:3306/gestionale
 
 # Configurazione di Next.js
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-nextauth-secret-key
 
-# Configurazione di SendGrid
+# Configurazione di SendGrid (opzionale per le email)
 SENDGRID_API_KEY=your-sendgrid-api-key
 EMAIL_FROM=noreply@yourdomain.com
 ```
@@ -60,10 +55,11 @@ EMAIL_FROM=noreply@yourdomain.com
 pnpm run docker:up
 ```
 
-2. Inizializza le tabelle del database:
+2. Genera e applica le migrazioni del database:
 
 ```bash
-pnpm tsx src/lib/db/init-tables.ts
+pnpm run db:generate
+pnpm run db:push
 ```
 
 3. Esegui il seed del database con dati iniziali:
@@ -87,30 +83,29 @@ Dopo aver eseguito il seed, saranno disponibili i seguenti utenti:
 - **Admin**
 
   - Email: admin@example.com
-  - Password: Password123!
+  - Password: Admin123!
 
 - **Utente standard**
   - Email: user@example.com
-  - Password: Password123!
+  - Password: User123!
 
 ## Struttura del progetto
 
 ```
 src/
 ├── app/                    # Pagine e route handlers di Next.js
-│   ├── api/                # API routes
-│   ├── dashboard/          # Area riservata
-│   ├── admin/              # Area amministrativa
-│   ├── login/              # Pagina di login
-│   ├── forgot-password/    # Recupero password
-│   └── reset-password/     # Reset password
+│   ├── (app)/              # Area riservata (dashboard)
+│   └── (auth)/             # Pagine di autenticazione
 ├── components/             # Componenti React riutilizzabili
+│   ├── auth/               # Componenti per l'autenticazione
+│   ├── dashboard/          # Componenti per la dashboard
+│   └── notifications/      # Componenti per le notifiche
 ├── lib/                    # Librerie e utility
+│   ├── auth/               # Configurazione Auth.js
 │   ├── db/                 # Configurazione database
 │   │   ├── schema/         # Schema del database
 │   │   └── seed.ts         # Script di seed
-├── auth.ts                 # Configurazione Auth.js
-└── middleware.ts           # Middleware per la protezione delle rotte
+│   └── notifications/      # Logica per le notifiche
 ```
 
 ## Comandi disponibili
@@ -125,27 +120,13 @@ src/
 - `pnpm run db:studio`: Avvia Drizzle Studio per gestire il database
 - `pnpm run db:seed`: Popola il database con dati iniziali
 
-## Sviluppo
+## Funzionalità implementate
 
-### Aggiungere nuove tabelle
-
-1. Crea un nuovo file nella cartella `src/lib/db/schema/`
-2. Definisci la tabella usando Drizzle
-3. Esporta la tabella in `src/lib/db/schema/index.ts`
-4. Genera e applica le migrazioni:
-
-```bash
-pnpm run db:generate
-pnpm run db:push
-```
-
-### Aggiungere nuove relazioni
-
-1. Crea un nuovo file nella cartella `src/lib/db/schema/relations/`
-2. Definisci le relazioni usando Drizzle
-3. Esporta le relazioni in `src/lib/db/schema/relations/index.ts`
+- **Sistema di autenticazione**: Login, logout e protezione delle rotte
+- **Dashboard con sidebar dinamica**: Menu basato sui ruoli utente
+- **Sistema di notifiche**: Notifiche e messaggi filtrati per ruolo
+- **Gestione utenti e ruoli**: Amministrazione di utenti con diversi livelli di accesso
 
 ## Licenza
 
 MIT
-# framework_gestionali
